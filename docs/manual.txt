@@ -1,0 +1,14 @@
+# Intro
+Meowbass is a psychoacoustic bass enhancer. It splits the bass with a phase-aligned crossover, makes harmonics from it, evens out their level and adds them back, so small speakers and headphones suggest deep bass that is not really there. It also lets you pull back the original sub to free headroom.
+
+# Quick start
+- Set Bass range near the lowest note you care about (kick or bass fundamental, often 50 to 100 Hz).
+- Raise Harmonics until the bass feels bigger on small speakers.
+- Lower Original bass to free headroom once the harmonics carry the bass.
+- Use Even/Odd to choose warm and round (even) or hard and edgy (odd).
+
+# Recommendations
+- Check on small speakers or headphones: that is where the effect matters.
+- Harmonic filter: Smooth for most material, Wide for brighter results, Tight for the cleanest low harmonics.
+- Short Dyn response keeps kicks punchy; longer values keep sustained bass smooth.
+- Do not lower Original bass so far that the club system loses real sub energy.
