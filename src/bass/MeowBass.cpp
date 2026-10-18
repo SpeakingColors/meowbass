@@ -145,18 +145,20 @@ void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
         const float ratio = get("ratio"), resp = get("resp");
         auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(14.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
-        dbAxis(g, p, -12.f, 18.f, 6.f);
+        dbAxis(g, p, -48.f, 0.f, 12.f);
         for (float v : { -48.f, -36.f, -24.f, -12.f, 0.f })
         { const float x = p.getX() + (v + 48.f) / 48.f * p.getWidth(); g.setColour(grid()); g.drawVerticalLine((int) x, p.getY(), p.getBottom()); g.setColour(green()); g.setFont(juce::FontOptions(10.f)); g.drawText(juce::String((int) v), (int) x - 14, (int) p.getBottom() + 1, 28, 11, juce::Justification::centred); }
         auto gainDb = [&](float levelDb) { const float lin = juce::Decibels::decibelsToGain(levelDb); return 20.f * std::log10(juce::jlimit(0.f, 8.f, std::pow(std::max(lin, 0.003f) / 0.25f, 1.f / ratio - 1.f))); };
-        auto Y = [&](float db) { return p.getBottom() - (juce::jlimit(-12.f, 18.f, db) + 12.f) / 30.f * p.getHeight(); };
+        auto Y = [&](float db) { return p.getBottom() - (juce::jlimit(-48.f, 0.f, db) + 48.f) / 48.f * p.getHeight(); };   // output level axis
+        auto outDb = [&](float levelDb) { return levelDb + gainDb(levelDb); };   // transfer curve: harmonic level out against bass level in
+        g.setColour(dim().withAlpha(0.6f)); g.drawLine(p.getX(), p.getBottom(), p.getRight(), p.getY(), 1.f);   // 1:1 line
         juce::Path c;
-        for (int i = 0; i <= 96; ++i) { const float lv = -48.f + (float) i / 2.f, x = p.getX() + (float) i / 96.f * p.getWidth(); i ? c.lineTo(x, Y(gainDb(lv))) : c.startNewSubPath(x, Y(gainDb(lv))); }
+        for (int i = 0; i <= 96; ++i) { const float lv = -48.f + (float) i / 2.f, x = p.getX() + (float) i / 96.f * p.getWidth(); i ? c.lineTo(x, Y(outDb(lv))) : c.startNewSubPath(x, Y(outDb(lv))); }
         g.setColour(accent()); g.strokePath(c, juce::PathStrokeType(2.f));
         const float lv = juce::jlimit(-48.f, 0.f, juce::Decibels::gainToDecibels(lowLevel.load(), -60.f));
-        g.setColour(juce::Colours::white); g.fillEllipse(p.getX() + (lv + 48.f) / 48.f * p.getWidth() - 3.f, Y(gainDb(lv)) - 3.f, 6.f, 6.f);
+        g.setColour(juce::Colours::white); g.fillEllipse(p.getX() + (lv + 48.f) / 48.f * p.getWidth() - 3.f, Y(outDb(lv)) - 3.f, 6.f, 6.f);
         g.setColour(green()); g.setFont(juce::FontOptions(11.f));
-        g.drawText("harmonic gain vs bass level", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
+        g.drawText("harmonics out vs bass in", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
         g.setColour(accent()); g.drawText(juce::String(ratio, 1) + ":1  " + juce::String((int) resp) + " ms", p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
     }
     else                // level: IN and OUT meters
