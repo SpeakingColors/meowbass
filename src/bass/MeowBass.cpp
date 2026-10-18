@@ -85,7 +85,7 @@ void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
     {
         const float f0 = get("freq"), origDb = get("orig"), harmDb = get("harm"); const int mode = (int) get("hfilt");
         const float lpK = mode == 0 ? 4.f : mode == 1 ? 8.f : 3.f, hpK = mode == 2 ? 2.f : 1.4f;
-        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(18.f).withTrimmedBottom(14.f);
+        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(14.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
         dbAxis(g, p, -36.f, 6.f, 6.f); freqAxis(g, p, 16.f, 1000.f);
         auto X = [&](float hz) { return freqToX(hz, p, 16.f, 1000.f); };
@@ -113,7 +113,7 @@ void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
     else if (idx == 1)  // shape of the generated harmonic over one bass cycle
     {
         const float odd = get("decay");
-        auto p = r.withTrimmedLeft(8.f).withTrimmedRight(8.f).withTrimmedTop(18.f).withTrimmedBottom(14.f);
+        auto p = r.withTrimmedLeft(8.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(14.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
         g.setColour(grid()); g.drawHorizontalLine((int) p.getCentreY(), p.getX(), p.getRight());
         juce::Path in, out; float mx = 1e-3f; std::vector<float> hs;
@@ -133,14 +133,14 @@ void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
         g.setColour(blue().withAlpha(0.8f)); g.strokePath(in, juce::PathStrokeType(1.5f));
         g.setColour(accent()); g.strokePath(out, juce::PathStrokeType(2.5f));
         g.setColour(dim()); g.setFont(juce::FontOptions(11.f));
-        g.drawText("one bass cycle: bass (blue), harmonics (orange)", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
+        g.drawText("one bass cycle", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
         g.drawText("even " + juce::String((int) std::round((1.f - odd) * 100.f)) + "%", p.toNearestInt().withY((int) p.getBottom() + 1).withHeight(12), juce::Justification::left);
         g.drawText("odd " + juce::String((int) std::round(odd * 100.f)) + "%", p.toNearestInt().withY((int) p.getBottom() + 1).withHeight(12), juce::Justification::right);
     }
     else if (idx == 2)  // dynamics: harmonic gain against bass level
     {
         const float ratio = get("ratio"), resp = get("resp");
-        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(18.f).withTrimmedBottom(14.f);
+        auto p = r.withTrimmedLeft(34.f).withTrimmedRight(8.f).withTrimmedTop(26.f).withTrimmedBottom(14.f);
         g.setColour(bg().brighter(0.04f)); g.fillRect(p);
         dbAxis(g, p, -12.f, 18.f, 6.f);
         for (float v : { -48.f, -36.f, -24.f, -12.f, 0.f })
@@ -153,8 +153,8 @@ void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
         const float lv = juce::jlimit(-48.f, 0.f, juce::Decibels::gainToDecibels(lowLevel.load(), -60.f));
         g.setColour(juce::Colours::white); g.fillEllipse(p.getX() + (lv + 48.f) / 48.f * p.getWidth() - 3.f, Y(gainDb(lv)) - 3.f, 6.f, 6.f);
         g.setColour(dim()); g.setFont(juce::FontOptions(11.f));
-        g.drawText("harmonic gain (dB) against bass level (dB)", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
-        g.drawText("ratio " + juce::String(ratio, 1) + ":1   response " + juce::String((int) resp) + " ms", p.toNearestInt().withTrimmedTop(2).withHeight(12), juce::Justification::right);
+        g.drawText("harmonic gain vs bass level", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
+        g.drawText(juce::String(ratio, 1) + ":1  " + juce::String((int) resp) + " ms", p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
     }
     else                // level: IN and OUT meters
     {
