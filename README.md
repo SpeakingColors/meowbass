@@ -5,7 +5,7 @@
 Free, open source psychoacoustic bass enhancer for Linux (VST3 and standalone). Splits the bass with a phase-aligned crossover, makes harmonics from it, evens out their level with a dynamics stage and adds them back so small speakers suggest deep bass.
 
 ## Status
-Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet. Free and open source. Donations welcome (link coming).
+Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet. Free and open source. Donations welcome: https://ko-fi.com/studio87
 
 ## Docs
 - [Roadmap](ROADMAP.md)
