@@ -8,7 +8,7 @@ MeowBass::MeowBass()
           { "in", "Input", " dB", -12.f, 12.f, 0.f, 0.f, "Input: level into the effect. Raise it for more harmonics from a quiet source." },
           { "orig", "Original bass", " dB", -48.f, 6.f, 0.f, 0.f, "Original bass: level of the untouched low end. Pull it down to free headroom and let the harmonics carry the bass." },
           { "harm", "Harmonics", " dB", -36.f, 18.f, -12.f, 0.f, "Harmonics: level of the added overtones that make small speakers suggest deep bass. Start low and raise until the bass feels bigger. Range -36 to +18 dB: from subtle to obvious." },
-          { "dyn", "Dynamics", "", 0.25f, 20.f, 0.5f, 2.2f, "Dynamics: how the harmonics follow the bass level. Below 1.00 it evens out quiet and loud notes (0.25 = most even). 1.00 is neutral. Above 1.00 the harmonics follow the level more and more, so loud notes get far more harmonics than quiet ones (20 = drastic)." },
+          { "dyn", "Dynamics", " %", -100.f, 100.f, -40.f, 0.f, "Dynamics: how the harmonics follow the bass level. 0 = off (neutral). Negative = evens out quiet and loud notes (-100 = most even, quiet notes are boosted). Positive = the harmonics follow the level more and more, so loud notes get far more harmonics than quiet ones (+100 = drastic). Tailor it from subtle to extreme either way." },
           { "resp", "Dyn response", " ms", 1.f, 200.f, 40.f, 40.f, "Dynamics response: how fast the level follower reacts. Short = tight and punchy, long = smooth." },
           { "decay", "Even/Odd", "", 0.f, 1.f, 0.5f, 0.f, "Even/Odd: character of the harmonics. Even = warm and round (rectifier style), Odd = harder and more edgy (clipper style)." },
           { "hdrive", "Drive", " %", 0.f, 100.f, 30.f, 0.f, "Harmonic drive: how hard the bass is pushed into the harmonic generator. Low = clean and subtle, high = thick, obvious and colourful. Works together with Even/Odd." },
@@ -49,10 +49,10 @@ void MeowBass::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer<fl
         for (int c = 0; c < nch; ++c) split[c].processSample(0, buf.getReadPointer(c)[i] * inG, lo[c], hi[c]);
         const float m = nch > 1 ? 0.5f * (lo[0] + lo[1]) : lo[0];      // harmonics are made from the mono low band
         const float a = std::abs(m) > env ? aA : aR; env = a * env + (1.f - a) * std::abs(m);
-        // Dynamics law: below 1 evens out, 1 is neutral, above 1 expands. Applied before the shaper (exponent 1) and after it (exponent 0.5).
-        const float ex = dyn >= 1.f ? (dyn - 1.f) / 19.f * 3.f : -(1.f - dyn) / 0.75f * 0.95f;
-        const float lg = std::log(std::max(env, 0.003f) / 0.25f);
-        const float pre = juce::jlimit(0.02f, 32.f, std::exp(ex * lg)), post = juce::jlimit(0.f, 64.f, std::exp(0.5f * ex * lg));
+        // Dynamics law (-100..+100 %): below 0 evens out, 0 is off (neutral), above 0 expands. Applied before the shaper (exponent 1) and after it (0.5 expand, 1 even out).
+        const float dn = juce::jlimit(-100.f, 100.f, dyn) * 0.01f, ex = dn >= 0.f ? dn * 3.f : dn * 1.5f;
+        const float lg = std::log(std::max(env, 0.003f) / (ex > 0.f ? 0.7f : 0.25f));
+        const float pre = juce::jlimit(0.02f, ex > 0.f ? 2.f : 6.f, std::exp(ex * lg)), post = juce::jlimit(0.f, ex > 0.f ? 2.f : 5.f, std::exp(ex * (ex < 0.f ? 1.f : 0.5f) * lg));
         float ev = std::abs(m * gD * pre); dcState += 0.002f * (ev - dcState); ev = std::tanh((ev - dcState) * 1.2f);
         const float od = std::tanh(4.f * gD * m * pre) * 0.5f;
         float h = (1.f - odd) * lpE.tick(hpE.tick(ev * 2.f * post * 0.375f)) + odd * lpO.tick(hpO.tick(od * post * 1.5f));
@@ -76,11 +76,11 @@ std::vector<FxBase::Preset> MeowBass::presets() const
     return {
         { "Init", {} },
         { "Small Speakers", { { "freq", 90.f }, { "orig", -6.f }, { "harm", -3.f }, { "hfilt", 1.f }, { "hdrive", 45.f } } },
-        { "Kick Weight", { { "freq", 60.f }, { "harm", -9.f }, { "decay", 0.3f }, { "dyn", 0.41f }, { "resp", 20.f } } },
+        { "Kick Weight", { { "freq", 60.f }, { "harm", -9.f }, { "decay", 0.3f }, { "dyn", -37.f }, { "resp", 20.f } } },
         { "Sub Clarity", { { "freq", 50.f }, { "orig", -3.f }, { "harm", -8.f }, { "decay", 0.2f }, { "hfilt", 2.f } } },
-        { "Reese Body", { { "freq", 110.f }, { "harm", -6.f }, { "decay", 0.7f }, { "dyn", 0.47f }, { "hfilt", 1.f }, { "hdrive", 50.f } } },
-        { "Gentle Warmth", { { "freq", 80.f }, { "harm", -16.f }, { "decay", 0.2f }, { "dyn", 0.61f }, { "hdrive", 15.f } } },
-        { "Hardstyle Rumble", { { "freq", 70.f }, { "orig", -2.f }, { "harm", -4.f }, { "decay", 0.8f }, { "dyn", 0.37f }, { "resp", 15.f }, { "hdrive", 70.f } } } };
+        { "Reese Body", { { "freq", 110.f }, { "harm", -6.f }, { "decay", 0.7f }, { "dyn", -42.f }, { "hfilt", 1.f }, { "hdrive", 50.f } } },
+        { "Gentle Warmth", { { "freq", 80.f }, { "harm", -16.f }, { "decay", 0.2f }, { "dyn", -27.f }, { "hdrive", 15.f } } },
+        { "Hardstyle Rumble", { { "freq", 70.f }, { "orig", -2.f }, { "harm", -4.f }, { "decay", 0.8f }, { "dyn", -53.f }, { "resp", 15.f }, { "hdrive", 70.f } } } };
 }
 
 void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
@@ -153,8 +153,8 @@ void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
         dbAxis(g, p, -48.f, 0.f, 12.f);
         for (float v : { -48.f, -36.f, -24.f, -12.f, 0.f })
         { const float x = p.getX() + (v + 48.f) / 48.f * p.getWidth(); g.setColour(grid()); g.drawVerticalLine((int) x, p.getY(), p.getBottom()); g.setColour(green()); g.setFont(juce::FontOptions(10.f)); g.drawText(juce::String((int) v), (int) x - 14, (int) p.getBottom() + 1, 28, 11, juce::Justification::centred); }
-        const float ex = dyn >= 1.f ? (dyn - 1.f) / 19.f * 3.f : -(1.f - dyn) / 0.75f * 0.95f;
-        auto gainDb = [&](float levelDb) { const float lin = juce::Decibels::decibelsToGain(levelDb); return 20.f * std::log10(juce::jlimit(1e-3f, 64.f, std::pow(std::max(lin, 0.003f) / 0.25f, ex * 1.5f))); };
+        const float dn = juce::jlimit(-100.f, 100.f, dyn) * 0.01f, ex = dn >= 0.f ? dn * 3.f : dn * 1.5f;
+        auto gainDb = [&](float levelDb) { const float lin = juce::Decibels::decibelsToGain(levelDb); return 20.f * std::log10(juce::jlimit(1e-3f, ex > 0.f ? 2.f : 30.f, std::pow(std::max(lin, 0.003f) / (ex > 0.f ? 0.7f : 0.25f), ex * (ex >= 0.f ? 1.5f : 2.f)))); };
         auto Y = [&](float db) { return p.getBottom() - (juce::jlimit(-48.f, 0.f, db) + 48.f) / 48.f * p.getHeight(); };   // output level axis
         auto outDb = [&](float levelDb) { return levelDb + gainDb(levelDb); };   // transfer curve: harmonic level out against bass level in
         g.setColour(dim().withAlpha(0.6f)); g.drawLine(p.getX(), p.getBottom(), p.getRight(), p.getY(), 1.f);   // 1:1 line
@@ -165,7 +165,7 @@ void MeowBass::paintPanel(int idx, juce::Graphics& g, juce::Rectangle<float> r)
         g.setColour(juce::Colours::white); g.fillEllipse(p.getX() + (lv + 48.f) / 48.f * p.getWidth() - 3.f, Y(outDb(lv)) - 3.f, 6.f, 6.f);
         g.setColour(green()); g.setFont(juce::FontOptions(11.f));
         g.drawText("harmonics out vs bass in", (int) r.getX() + 4, (int) r.getY() + 1, (int) r.getWidth(), 12, juce::Justification::left);
-        g.setColour(accent()); g.drawText("dyn " + juce::String(dyn, 2) + "  " + juce::String((int) resp) + " ms", p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
+        g.setColour(accent()); g.drawText(juce::String("dyn ") + (dyn > 0.f ? "+" : "") + juce::String((int) std::round(dyn)) + "  " + juce::String((int) resp) + " ms", p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
     }
     else                // level: IN and OUT meters
     {

@@ -6,12 +6,12 @@ Meowbass is a psychoacoustic bass enhancer. It splits the bass with a phase-alig
 - Raise Harmonics until the bass feels bigger on small speakers.
 - Lower Original bass to free headroom once the harmonics carry the bass.
 - Use Even/Odd to choose warm and round (even) or hard and edgy (odd), and Drive to make the harmonics subtle (low) or thick and obvious (high).
-- Dynamics: below 1.00 it evens out quiet and loud notes, 1.00 is neutral, above 1.00 loud notes get far more harmonics than quiet ones (drastic at 20).
+- Dynamics (-100 to +100 %): 0 is off. Negative evens out quiet and loud notes (-100 is the most even). Positive makes loud notes get far more harmonics than quiet ones (+100 is drastic). Light or extreme, either side.
 
 # Recommendations
 - Check on small speakers or headphones: that is where the effect matters.
 - Harmonic filter: Smooth for most material, Wide for brighter results, Tight for the cleanest low harmonics.
 - Short Dyn response keeps kicks punchy; longer values keep sustained bass smooth.
 - Harmonics now range from -36 to +18 dB (default -12 dB): lower for subtle, higher for obvious.
-- Version note: the old Dyn ratio knob is replaced by Dynamics (new meaning). Projects saved with an older version start Dynamics at 0.50 and keep their other settings; the default Harmonics level is now 6 dB lower than before, so check old projects by ear.
+- Version note: the old Dyn ratio knob is replaced by Dynamics (new meaning). Dynamics now runs from -100 to +100 % (0 = off), so an old saved value (0.25 to 20) reads as almost off; set it again; the default Harmonics level is now 6 dB lower than before, so check old projects by ear.
 - Do not lower Original bass so far that the club system loses real sub energy.
