@@ -11,7 +11,7 @@ Meowbass is a psychoacoustic bass enhancer. It splits the bass with a phase-alig
 # Recommendations
 - Check on small speakers or headphones: that is where the effect matters.
 - Harmonic filter: Smooth for most material, Wide for brighter results, Tight for the cleanest low harmonics.
-- Short Dyn response keeps kicks punchy; longer values keep sustained bass smooth.
+- Dyn response (1 to 1000 ms) works with Dynamics (at Dynamics 0 it does nothing). Short values make every hit snap the harmonics (punchy, tight); long values let the harmonics glide over whole notes (smooth, slow swell). With Dynamics up the difference is big.
 - Harmonics now range from -36 to +18 dB (default -12 dB): lower for subtle, higher for obvious.
 - Version note: the old Dyn ratio knob is replaced by Dynamics (new meaning). Dynamics now runs from -100 to +100 % (0 = off), so an old saved value (0.25 to 20) reads as almost off; set it again; the default Harmonics level is now 6 dB lower than before, so check old projects by ear.
 - Do not lower Original bass so far that the club system loses real sub energy.
