@@ -4,6 +4,8 @@
 
 Free, open source psychoacoustic bass enhancer for Linux (VST3 and standalone). Splits the bass with a phase-aligned crossover, makes harmonics from it, evens out their level with a dynamics stage and adds them back so small speakers suggest deep bass.
 
+**Manual:** [PDF with interface tour, opens in the browser](https://github.com/SpeakingColors/meowbass/blob/main/docs/Meowbass-manual.pdf)
+
 ## Status
 Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet.
 
