@@ -6,6 +6,8 @@ Free, open source psychoacoustic bass enhancer for Linux (VST3 and standalone). 
 
 **Manual:** [PDF with interface tour, opens in the browser](https://github.com/SpeakingColors/meowbass/blob/main/docs/Meowbass-manual.pdf)
 
+<p align="center"><img src="docs/screenshot.png" alt="Meowbass editor" width="900"><br><sub>Screenshot of the plugin page in docs/mockups.</sub></p>
+
 ## Status
 Early scaffold. It builds in CI (Linux VST3 and standalone) but has not been tuned by ear yet.
 
