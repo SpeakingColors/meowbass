@@ -37,12 +37,12 @@ Call Stack (most recent call first):
   CMakeLists.txt:11 (juce_add_plugin)
 
 
--- Configuring done (93.7s)
+-- Configuring done (63.4s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/meowbass/meowbass/build
 [  1%] Building VST3 manifest helper for Meowbass
-[  3%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
 [  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
+[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
 [  6%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
 -- The CXX compiler identification is GNU 15.2.0
 -- Detecting CXX compiler ABI info
@@ -50,7 +50,7 @@ Call Stack (most recent call first):
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (0.3s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/meowbass/meowbass/build/vst3_helpers/Meowbass
 [ 50%] Building CXX object CMakeFiles/vst3_helper.dir/home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.cpp.o
@@ -62,18 +62,26 @@ Call Stack (most recent call first):
 [ 11%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
 [ 13%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
 [ 14%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics.cpp.o
-[ 18%] Building C object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
 [ 16%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+[ 18%] Building C object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
 [ 19%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_events/juce_events.cpp.o
 [ 21%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_core/juce_core.cpp.o
 [ 22%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
 [ 24%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_data_structures/juce_data_structures.cpp.o
 [ 26%] Linking CXX static library libcat_ui.a
 [ 26%] Built target cat_ui
-[ 27%] Building CXX object CMakeFiles/Meowbass.dir/src/common/FxBase.cpp.o
+[ 29%] Building CXX object CMakeFiles/Meowbass.dir/src/common/FxBase.cpp.o
 [ 29%] Building CXX object CMakeFiles/Meowbass.dir/src/common/FxEditor.cpp.o
 [ 31%] Building CXX object CMakeFiles/Meowbass.dir/src/Plugins.cpp.o
 [ 32%] Building CXX object CMakeFiles/Meowbass.dir/src/bass/MeowBass.cpp.o
+In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/meowbass/meowbass/src/common/FxBase.h:2,
+                 from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.h:2,
+                 from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.cpp:1:
+/home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
 In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
                  from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
                  from /home/runner/work/meowbass/meowbass/src/common/FxBase.h:2,
@@ -84,55 +92,15 @@ In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/m
 /home/runner/work/meowbass/meowbass/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
    60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
       |          ^~~~~~~~~~~~
+/home/runner/work/meowbass/meowbass/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
 In file included from /home/runner/work/meowbass/meowbass/src/common/FxEditor.h:3,
                  from /home/runner/work/meowbass/meowbass/src/common/FxBase.cpp:2:
 /home/runner/work/meowbass/meowbass/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
 /home/runner/work/meowbass/meowbass/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
    91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
       |                                                         ~~~~~^~~~~~
-In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/meowbass/meowbass/src/common/FxBase.h:2,
-                 from /home/runner/work/meowbass/meowbass/src/common/FxEditor.h:2,
-                 from /home/runner/work/meowbass/meowbass/src/common/FxEditor.cpp:1:
-/home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/meowbass/meowbass/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
-In file included from /home/runner/work/meowbass/meowbass/src/common/FxEditor.h:3:
-/home/runner/work/meowbass/meowbass/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
-/home/runner/work/meowbass/meowbass/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
-      |                                                         ~~~~~^~~~~~
-In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/meowbass/meowbass/src/common/FxBase.h:2,
-                 from /home/runner/work/meowbass/meowbass/src/Plugins.cpp:2:
-/home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/meowbass/meowbass/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
-In file included from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.h:3,
-                 from /home/runner/work/meowbass/meowbass/src/Plugins.cpp:3:
-/home/runner/work/meowbass/meowbass/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
-/home/runner/work/meowbass/meowbass/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
-      |                                                         ~~~~~^~~~~~
-In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/meowbass/meowbass/src/common/FxBase.h:2,
-                 from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.h:2,
-                 from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.cpp:1:
-/home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/meowbass/meowbass/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
 In file included from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.h:3:
 /home/runner/work/meowbass/meowbass/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
 /home/runner/work/meowbass/meowbass/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
@@ -149,6 +117,38 @@ In file included from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.h:3:
 /home/runner/work/meowbass/meowbass/src/bass/MeowBass.cpp:181:134: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
   181 |         g.setColour(accent()); g.drawText(juce::String("dyn ") + (dyn > 0.f ? "+" : "") + juce::String((int) std::round(dyn)) + (dyn == 0.f ? " (off)" : "") + "  " + juce::String((int) resp) + " ms", p.toNearestInt().withTrimmedTop(2).withHeight(12).withTrimmedRight(4), juce::Justification::right);
       |                                                                                                                                  ~~~~^~~~~~
+In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/meowbass/meowbass/src/common/FxBase.h:2,
+                 from /home/runner/work/meowbass/meowbass/src/common/FxEditor.h:2,
+                 from /home/runner/work/meowbass/meowbass/src/common/FxEditor.cpp:1:
+/home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
+/home/runner/work/meowbass/meowbass/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
+In file included from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/meowbass/meowbass/src/common/FxBase.h:2,
+                 from /home/runner/work/meowbass/meowbass/src/Plugins.cpp:2:
+/home/runner/work/meowbass/meowbass/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
+/home/runner/work/meowbass/meowbass/src/common/FxBase.h:60:10: note:   by ‘virtual void catfx::FxBase::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   60 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
+In file included from /home/runner/work/meowbass/meowbass/src/common/FxEditor.h:3:
+/home/runner/work/meowbass/meowbass/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
+/home/runner/work/meowbass/meowbass/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
+      |                                                         ~~~~~^~~~~~
+In file included from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.h:3,
+                 from /home/runner/work/meowbass/meowbass/src/Plugins.cpp:3:
+/home/runner/work/meowbass/meowbass/src/common/Viz.h: In function ‘void catfx::viz::grMeter(juce::Graphics&, juce::Rectangle<float>, float, float)’:
+/home/runner/work/meowbass/meowbass/src/common/Viz.h:91:62: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+   91 |         g.setColour(red().withAlpha(0.85f)); g.drawText(tick == 0.f ? "0" : "-" + juce::String((int) tick), (int) track.getRight() + 4, (int) y - 5, 24, 10, juce::Justification::left);
+      |                                                         ~~~~~^~~~~~
 [ 34%] Building CXX object CMakeFiles/Meowbass.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.cpp.o
 [ 36%] Building CXX object CMakeFiles/Meowbass.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.cpp.o
 [ 37%] Building CXX object CMakeFiles/Meowbass.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
@@ -174,20 +174,20 @@ In file included from /home/runner/work/meowbass/meowbass/src/bass/MeowBass.h:3:
 [ 70%] Linking CXX static library Meowbass_artefacts/Release/libMeowbass_SharedCode.a
 [ 70%] Built target Meowbass
 [ 72%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
-[ 73%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 75%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
 [ 75%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 [ 77%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 [ 78%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 80%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 81%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 83%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 85%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 81%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 81%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 83%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 86%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
 [ 86%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 88%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 88%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
 [ 90%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 91%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 95%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 95%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 93%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 93%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 95%] Building CXX object CMakeFiles/Meowbass_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
 [ 96%] Building CXX object CMakeFiles/Meowbass_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
 [ 98%] Linking CXX executable Meowbass_artefacts/Release/Standalone/Meowbass
 [ 98%] Built target Meowbass_Standalone
