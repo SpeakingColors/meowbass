@@ -4,7 +4,7 @@
 - [ ] Listen and tune harmonic levels on real bass and kicks
 - [ ] Mono-compatible stereo handling check
 - [ ] Subharmonic option
-- [ ] Presets for kick, bass lead, full mix
+- [x] Six factory presets (Small Speakers, Kick Weight, Sub Clarity, Reese Body, Gentle Warmth, Hardstyle Rumble)
 - [ ] Expose the generated harmonics for solo listening
 
 ## Every cat plugin
