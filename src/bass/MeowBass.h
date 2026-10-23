@@ -32,7 +32,7 @@ private:
     };
     juce::dsp::LinkwitzRileyFilter<float> split[2];
     Bq hpE, lpE, hpO, lpO;                       // separate even and odd branch filters
-    float env = 0.f, dcState = 0.f;
+    float env = 0.f, dcState = 0.f, mPrev = 0.f; int lastHq = -1;
     juce::SmoothedValue<float> gIn, gOrig, gHarm, gOut, sDyn, sDrive;   // 20 ms or less: no zipper noise, no audible lag
     std::atomic<float> lowLevel { 0.f }, harmLevel { 0.f };
 };

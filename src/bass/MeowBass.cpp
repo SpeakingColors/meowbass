@@ -13,14 +13,15 @@ MeowBass::MeowBass()
           { "decay", "Even/Odd", "", 0.f, 1.f, 0.5f, 0.f, "Even/Odd: character of the harmonics. Even = warm and round (rectifier style), Odd = harder and more edgy (clipper style)." },
           { "hdrive", "Drive", " %", 0.f, 100.f, 30.f, 0.f, "Harmonic drive: how hard the bass is pushed into the harmonic generator. Low = clean and subtle, high = thick, obvious and colourful. Works together with Even/Odd." },
           { "out", "Output", " dB", -12.f, 12.f, 0.f, 0.f, "Output: final level. Match it with the bypassed level when comparing." } },
-        { { "hfilt", "Harmonic filter", { "Smooth", "Wide", "Tight" }, 0, "Harmonic filter: Smooth is balanced, Wide lets more upper harmonics through (brighter), Tight keeps only the lowest ones (cleaner)." } }) {}
+        { { "hfilt", "Harmonic filter", { "Smooth", "Wide", "Tight" }, 0, "Harmonic filter: Smooth is balanced, Wide lets more upper harmonics through (brighter), Tight keeps only the lowest ones (cleaner)." },
+          { "quality", "Quality", { "Normal", "High (2x)" }, 1, "Quality: High runs the harmonic generator and its filters at twice the sample rate, so hard-driven settings stay clean (less aliasing). It adds no delay and costs very little CPU. Normal is the plain 1x path." } }) {}
 
 void MeowBass::prepare(double sr, int bs)
 {
     juce::dsp::ProcessSpec spec { sr, (juce::uint32) bs, 1 };
     for (auto& s : split) { s.prepare(spec); s.reset(); }
     hpE.reset(); lpE.reset(); hpO.reset(); lpO.reset();
-    env = 0.f; dcState = 0.f;
+    env = 0.f; dcState = 0.f; mPrev = 0.f; lastHq = -1;
     auto ini = [&](juce::SmoothedValue<float>& v, float val, double sec) { v.reset(sr, sec); v.setCurrentAndTargetValue(val); };
     ini(gIn, juce::Decibels::decibelsToGain(get("in")), 0.02); ini(gOrig, juce::Decibels::decibelsToGain(get("orig")), 0.02);
     ini(gHarm, juce::Decibels::decibelsToGain(get("harm")), 0.02); ini(gOut, juce::Decibels::decibelsToGain(get("out")), 0.02);
@@ -38,7 +39,10 @@ void MeowBass::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer<fl
     const float lpHz = mode == 0 ? 4.f * f0 : mode == 1 ? 8.f * f0 : 3.f * f0;
     const float hpOHz = mode == 2 ? 2.f * f0 : 1.4f * f0, hpEHz = (mode == 2 ? 1.0f : mode == 1 ? 0.7f : 0.8f) * f0;
     for (int c = 0; c < nch; ++c) split[c].setCutoffFrequency(f0);
-    hpO.set(true, fs, hpOHz); hpE.set(true, fs, hpEHz); lpO.set(false, fs, lpHz); lpE.set(false, fs, lpHz);
+    const bool hq = (int) get("quality") == 1;                       // 2x: the harmonic generator and its filters run at twice the rate (no added delay)
+    const double fsH = hq ? 2.0 * fs : fs;
+    hpO.set(true, fsH, hpOHz); hpE.set(true, fsH, hpEHz); lpO.set(false, fsH, lpHz); lpE.set(false, fsH, lpHz);
+    if ((int) hq != lastHq) { hpE.reset(); lpE.reset(); hpO.reset(); lpO.reset(); lastHq = (int) hq; }   // filter states belong to one rate
     const float aA = std::exp(-1.f / (0.001f * std::max(0.2f, resp * 0.04f) * (float) fs)), aR = std::exp(-1.f / (0.001f * resp * (float) fs));
     float lowPk = 0.f, harmPk = 0.f;
     for (int i = 0; i < n; ++i)
@@ -53,9 +57,18 @@ void MeowBass::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer<fl
         const float dn = juce::jlimit(-100.f, 100.f, dyn) * 0.01f, ex = dn >= 0.f ? dn * 3.f : dn * 1.5f;
         const float lg = std::log(std::max(env, 0.003f) / (ex > 0.f ? 0.3f : 0.25f));
         const float pre = juce::jlimit(0.02f, 6.f, std::exp(ex * lg)), post = juce::jlimit(0.f, ex > 0.f ? 4.f : 5.f, std::exp(ex * (ex < 0.f ? 1.f : 0.5f) * lg));
-        float ev = std::abs(m * gD * pre); dcState += 0.002f * (ev - dcState); ev = std::tanh((ev - dcState) * 1.2f);
-        const float od = std::tanh(4.f * gD * m * pre) * 0.5f;
-        float h = (1.f - odd) * lpE.tick(hpE.tick(ev * 2.f * post * 0.375f)) + odd * lpO.tick(hpO.tick(od * post * 1.5f));
+        // harmonic generator for one (possibly interpolated) sample of the low band
+        const float dcK = hq ? 0.001f : 0.002f;
+        auto gen = [&](float mm)
+        {
+            float ev = std::abs(mm * gD * pre); dcState += dcK * (ev - dcState); ev = std::tanh((ev - dcState) * 1.2f);
+            const float od = std::tanh(4.f * gD * mm * pre) * 0.5f;
+            return (1.f - odd) * lpE.tick(hpE.tick(ev * 2.f * post * 0.375f)) + odd * lpO.tick(hpO.tick(od * post * 1.5f));
+        };
+        float h;
+        if (hq) { gen(0.5f * (mPrev + m)); h = gen(m); }   // the band is far below Nyquist, so the midpoint is a straight interpolation; keep the second output (aligned with this sample)
+        else h = gen(m);
+        mPrev = m;
         h *= harmG * 4.f * 0.5f;
         lowPk = std::max(lowPk, std::abs(m)); harmPk = std::max(harmPk, std::abs(h));
         for (int c = 0; c < nch; ++c) buf.getWritePointer(c)[i] = (hi[c] + lo[c] * origG + h) * outG;
@@ -65,7 +78,7 @@ void MeowBass::process(juce::AudioBuffer<float>& buf, const juce::AudioBuffer<fl
 
 std::vector<catfx::PanelSpec> MeowBass::panels() const
 {
-    return { { "Frequency", { "freq", "orig", "harm" }, { "hfilt" }, 3.4f },
+    return { { "Frequency", { "freq", "orig", "harm" }, { "hfilt", "quality" }, 3.4f },
              { "Character", { "decay", "hdrive" }, {}, 1.3f },
              { "Dynamics", { "dyn", "resp" }, {}, 1.7f },
              { "Level", { "in", "out" }, {}, 1.5f } };
