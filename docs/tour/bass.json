@@ -1,273 +1,278 @@
 {
  "key": "bass",
- "preset": "Hardstyle Rumble",
+ "preset": "Init",
  "box": [
-  100,
-  207.78125,
-  1100,
-  438.390625
+  0,
+  0,
+  2000,
+  906
  ],
  "items": [
   {
    "title": "Frequency",
-   "box": [
-    135,
-    272.78125,
-    416.25,
-    360.390625
-   ],
+   "box": {
+    "x": 72,
+    "y": 120,
+    "w": 768,
+    "h": 762
+   },
+   "img": "bass_p1.png",
    "disp": {
     "letter": "A",
-    "box": [
-     143,
-     302.171875,
-     400.25,
-     194
-    ]
+    "box": {
+     "x": 86,
+     "y": 166,
+     "w": 740,
+     "h": 390
+    }
    },
    "items": [
     {
-     "n": 5,
+     "n": 6,
      "kind": "knob",
      "name": "Bass range",
      "tip": "Bass range: the frequency below which the bass is picked up to make harmonics. Set it near the lowest note you want to feel (kick or bass fundamental, often 50 to 100 Hz).",
-     "value": "70 Hz",
-     "box": [
-      143,
-      502.171875,
-      132.078125,
-      84
-     ]
-    },
-    {
-     "n": 6,
-     "kind": "knob",
-     "name": "Original bass",
-     "tip": "Original bass: level of the untouched low end. Pull it down to free headroom and let the harmonics carry the bass.",
-     "value": "-2.0 dB",
-     "box": [
-      277.078125,
-      502.171875,
-      132.078125,
-      84
-     ]
+     "value": "80 Hz",
+     "box": {
+      "x": 86,
+      "y": 568,
+      "w": 246,
+      "h": 168
+     }
     },
     {
      "n": 7,
      "kind": "knob",
-     "name": "Harmonics",
-     "tip": "Harmonics: level of the added overtones that make small speakers suggest deep bass. Start low and raise until the bass feels bigger.",
-     "value": "-4.0 dB",
-     "box": [
-      411.15625,
-      502.171875,
-      132.078125,
-      84
-     ]
+     "name": "Original bass",
+     "tip": "Original bass: level of the untouched low end. Pull it down to free headroom and let the harmonics carry the bass.",
+     "value": "0.0 dB",
+     "box": {
+      "x": 332,
+      "y": 568,
+      "w": 246,
+      "h": 168
+     }
     },
     {
      "n": 8,
+     "kind": "knob",
+     "name": "Harmonics",
+     "tip": "Harmonics: level of the added overtones that make small speakers suggest deep bass. Start low and raise until the bass feels bigger. Range -36 to +18 dB: from subtle to obvious.",
+     "value": "-12.0 dB",
+     "box": {
+      "x": 578,
+      "y": 568,
+      "w": 246,
+      "h": 168
+     }
+    },
+    {
+     "n": 9,
      "kind": "menu",
      "name": "Harmonic filter",
      "tip": "Harmonic filter: Smooth is balanced, Wide lets more upper harmonics through (brighter), Tight keeps only the lowest ones (cleaner).",
      "value": "Smooth",
-     "box": [
-      145,
-      592.171875,
-      85,
-      33
-     ]
-    }
-   ],
-   "img": "bass_p1.png"
-  },
-  {
-   "title": "Character",
-   "box": [
-    563.25,
-    272.78125,
-    169.03125,
-    360.390625
-   ],
-   "disp": {
-    "letter": "B",
-    "box": [
-     571.25,
-     302.171875,
-     153.03125,
-     194
-    ]
-   },
-   "items": [
-    {
-     "n": 9,
-     "kind": "knob",
-     "name": "Even/Odd",
-     "tip": "Even/Odd: character of the harmonics. Even = warm and round (rectifier style), Odd = harder and more edgy (clipper style).",
-     "value": "0.80",
-     "box": [
-      571.25,
-      502.171875,
-      75.515625,
-      84
-     ]
+     "box": {
+      "x": 86,
+      "y": 752,
+      "w": 740,
+      "h": 52
+     }
     },
     {
      "n": 10,
-     "kind": "knob",
-     "name": "Drive",
-     "tip": "Harmonic drive: how hard the bass is pushed into the harmonic generator. Low = clean and subtle, high = thick, obvious and colourful. Works together with Even/Odd.",
-     "value": "70%",
-     "box": [
-      648.765625,
-      502.171875,
-      75.515625,
-      84
-     ]
+     "kind": "menu",
+     "name": "Quality",
+     "tip": "Quality: High runs the harmonic generator and its filters at twice the sample rate, so hard-driven settings stay clean (less aliasing). It adds no delay and costs very little CPU. Normal is the plain 1x path.",
+     "value": "High (2x)",
+     "box": {
+      "x": 86,
+      "y": 812,
+      "w": 740,
+      "h": 52
+     }
     }
-   ],
-   "img": "bass_p2.png"
+   ]
   },
   {
-   "title": "Dynamics",
-   "box": [
-    744.28125,
-    272.78125,
-    216.125,
-    360.390625
-   ],
+   "title": "Character",
+   "box": {
+    "x": 864,
+    "y": 120,
+    "w": 294,
+    "h": 762
+   },
+   "img": "bass_p2.png",
    "disp": {
-    "letter": "C",
-    "box": [
-     752.28125,
-     302.171875,
-     200.125,
-     194
-    ]
+    "letter": "B",
+    "box": {
+     "x": 878,
+     "y": 166,
+     "w": 266,
+     "h": 522
+    }
    },
    "items": [
     {
      "n": 11,
      "kind": "knob",
-     "name": "Dynamics",
-     "tip": "Dynamics: how the harmonics follow the bass level. 0 = off (neutral). Negative = evens out quiet and loud notes (-100 = most even, quiet notes get boosted). Positive = the harmonics follow the level more and more, so loud notes get far more harmonics than quiet ones (+100 = drastic). Tailor it from subtle to extreme either way.",
-     "value": "-53%",
-     "box": [
-      752.28125,
-      502.171875,
-      99.0625,
-      84
-     ]
+     "name": "Even/Odd",
+     "tip": "Even/Odd: character of the harmonics. Even = warm and round (rectifier style), Odd = harder and more edgy (clipper style).",
+     "value": "0.50",
+     "box": {
+      "x": 878,
+      "y": 700,
+      "w": 132,
+      "h": 168
+     }
     },
     {
      "n": 12,
      "kind": "knob",
-     "name": "Dyn response",
-     "tip": "Dynamics response: how fast the harmonics follow the bass level (works together with Dynamics, at Dynamics 0 it does nothing). Short = every hit snaps the harmonics (punchy, tight); long = the harmonics glide over whole notes (smooth, slow swell). With Dynamics up, the difference is big.",
-     "value": "15 ms",
-     "box": [
-      853.34375,
-      502.171875,
-      99.0625,
-      84
-     ]
+     "name": "Drive",
+     "tip": "Harmonic drive: how hard the bass is pushed into the harmonic generator. Low = clean and subtle, high = thick, obvious and colourful. Works together with Even/Odd.",
+     "value": "30 %",
+     "box": {
+      "x": 1010,
+      "y": 700,
+      "w": 132,
+      "h": 168
+     }
     }
-   ],
-   "img": "bass_p3.png"
+   ]
   },
   {
-   "title": "Level",
-   "box": [
-    972.40625,
-    272.78125,
-    192.578125,
-    360.390625
-   ],
+   "title": "Dynamics",
+   "box": {
+    "x": 1182,
+    "y": 120,
+    "w": 384,
+    "h": 762
+   },
+   "img": "bass_p3.png",
    "disp": {
-    "letter": "D",
-    "box": [
-     980.40625,
-     302.171875,
-     176.578125,
-     194
-    ]
+    "letter": "C",
+    "box": {
+     "x": 1196,
+     "y": 166,
+     "w": 356,
+     "h": 522
+    }
    },
    "items": [
     {
      "n": 13,
      "kind": "knob",
-     "name": "Input",
-     "tip": "Input: level into the effect. Raise it for more harmonics from a quiet source.",
-     "value": "0.0 dB",
-     "box": [
-      980.40625,
-      502.171875,
-      87.296875,
-      84
-     ]
+     "name": "Dynamics",
+     "tip": "Dynamics: how the harmonics follow the bass level. 0 = off (neutral). Negative = evens out quiet and loud notes (-100 = most even, quiet notes are boosted). Positive = the harmonics follow the level more and more, so loud notes get far more harmonics than quiet ones (+100 = drastic). Tailor it from subtle to extreme either way.",
+     "value": "-40 %",
+     "box": {
+      "x": 1196,
+      "y": 700,
+      "w": 178,
+      "h": 168
+     }
     },
     {
      "n": 14,
      "kind": "knob",
+     "name": "Dyn response",
+     "tip": "Dynamics response: how fast the harmonics follow the bass level (works together with Dynamics; at Dynamics 0 it does nothing). Short = every hit snaps the harmonics (punchy, tight); long = the harmonics glide over whole notes (smooth, slow swell). With Dynamics up, the difference is big.",
+     "value": "40 ms",
+     "box": {
+      "x": 1374,
+      "y": 700,
+      "w": 178,
+      "h": 168
+     }
+    }
+   ]
+  },
+  {
+   "title": "Level",
+   "box": {
+    "x": 1590,
+    "y": 120,
+    "w": 338,
+    "h": 762
+   },
+   "img": "bass_p4.png",
+   "disp": {
+    "letter": "D",
+    "box": {
+     "x": 1604,
+     "y": 166,
+     "w": 310,
+     "h": 522
+    }
+   },
+   "items": [
+    {
+     "n": 15,
+     "kind": "knob",
+     "name": "Input",
+     "tip": "Input: level into the effect. Raise it for more harmonics from a quiet source.",
+     "value": "0.0 dB",
+     "box": {
+      "x": 1604,
+      "y": 700,
+      "w": 154,
+      "h": 168
+     }
+    },
+    {
+     "n": 16,
+     "kind": "knob",
      "name": "Output",
      "tip": "Output: final level. Match it with the bypassed level when comparing.",
      "value": "0.0 dB",
-     "box": [
-      1069.703125,
-      502.171875,
-      87.296875,
-      84
-     ]
+     "box": {
+      "x": 1758,
+      "y": 700,
+      "w": 154,
+      "h": 168
+     }
     }
-   ],
-   "img": "bass_p4.png"
+   ]
   }
  ],
- "displays": [],
+ "displays": {},
  "top": [
   {
    "n": 1,
    "name": "Preset menu",
-   "tip": "Factory presets (our own) and your saved presets.",
-   "box": [
-    792.765625,
-    225.28125,
-    152,
-    33
-   ]
+   "tip": "Factory presets (our own). Use the arrows to step through them.",
+   "value": "Init",
+   "kind": "menu"
   },
   {
    "n": 2,
    "name": "Randomize",
-   "tip": "Set the knobs to random values (output level, mix, cuts and pan are kept).",
-   "box": [
-    952.765625,
-    224.984375,
-    97.390625,
-    33.59375
-   ]
+   "tip": "Set the controls to random values (output level and on/off switches are kept).",
+   "value": "",
+   "kind": "button"
   },
   {
    "n": 3,
    "name": "Limiter",
-   "tip": "Safety limiter on the output: keeps the level from ever passing 0 dBFS, smooth and transparent. Turn it off for the raw output.",
-   "box": [
-    1058.15625,
-    224.984375,
-    68.84375,
-    33.59375
-   ]
+   "tip": "Safety limiter on the output: keeps the level from ever passing 0 dBFS, smooth and transparent. Turn it off if you want the raw output (for example to let your own limiter do the work).",
+   "value": "",
+   "kind": "button"
   },
   {
    "n": 4,
+   "name": "Settings",
+   "tip": "Settings: version, link to the GitHub page for new versions",
+   "value": "",
+   "kind": "button"
+  },
+  {
+   "n": 5,
    "name": "Info bubbles (i)",
    "tip": "Info bubbles: hover a control for one second to see what it does. Click to turn them off or on.",
-   "box": [
-    1135,
-    226.78125,
-    30,
-    30
-   ]
+   "value": "",
+   "kind": "button"
   }
- ]
+ ],
+ "names": {}
 }
