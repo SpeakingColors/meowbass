@@ -1,5 +1,7 @@
 # Meowbass 🐈
 
+<p align="center"><a href="https://ko-fi.com/studio87"><img src="https://raw.githubusercontent.com/SpeakingColors/.github/main/assets/kofi-banner.svg" alt="Support Studio 87 on Ko-fi" width="440"></a></p>
+
 <img src="assets/icon.svg" width="96" align="right" alt="icon">
 
 Free, open source psychoacoustic bass enhancer for Linux (VST3 and standalone). Splits the bass with a phase-aligned crossover, makes harmonics from it, evens out their level with a dynamics stage and adds them back so small speakers suggest deep bass.
